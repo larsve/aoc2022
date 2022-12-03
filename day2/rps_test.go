@@ -1,13 +1,14 @@
 package main
 
 import (
-	"bytes"
+	"fmt"
 	"testing"
+
+	"aoc2022/pkg/ilr"
 )
 
-func Test_scorePart1(t *testing.T) {
+func Test_part1Score(t *testing.T) {
 	tests := []struct {
-		name      string
 		input     string
 		wantScore int
 	}{
@@ -16,18 +17,17 @@ func Test_scorePart1(t *testing.T) {
 		{input: "A X\nB Y\nC Z", wantScore: 15},
 		{input: "A Y\nB Z\nC X", wantScore: 24},
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := scorePart1(bytes.NewBufferString(tt.input)); got != tt.wantScore {
+	for i, tt := range tests {
+		t.Run(fmt.Sprintf("#%d", i), func(t *testing.T) {
+			if got := part1Score(ilr.New(tt.input)); got != tt.wantScore {
 				t.Errorf("ERROR: got score: %v, want %v", got, tt.wantScore)
 			}
 		})
 	}
 }
 
-func Test_scorePart2(t *testing.T) {
+func Test_part2Score(t *testing.T) {
 	tests := []struct {
-		name      string
 		input     string
 		wantScore int
 	}{
@@ -36,9 +36,9 @@ func Test_scorePart2(t *testing.T) {
 		{input: "A Y\nB Y\nC Y", wantScore: 15},
 		{input: "A Z\nB Z\nC Z", wantScore: 24},
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := scorePart2(bytes.NewBufferString(tt.input)); got != tt.wantScore {
+	for i, tt := range tests {
+		t.Run(fmt.Sprintf("#%d", i), func(t *testing.T) {
+			if got := part2Score(ilr.New(tt.input)); got != tt.wantScore {
 				t.Errorf("ERROR: got score: %v, want %v", got, tt.wantScore)
 			}
 		})

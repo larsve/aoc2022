@@ -1,67 +1,62 @@
 package main
 
 import (
-	"bufio"
-	"io"
+	"aoc2022/pkg/ilr"
 )
 
-func scorePart1(input io.Reader) int {
-	r := bufio.NewScanner(input)
-	r.Split(bufio.ScanLines)
-	var score int
-	for r.Scan() {
-		switch r.Text() {
+func part1Score(input *ilr.LineReader) int {
+	var sum int
+	input.ForEach(func(line string) {
+		switch line {
 		case "A X": // Rock = Rock (1)
-			score += 4
+			sum += 4
 		case "A Y": // Rock < Paper (2)
-			score += 8
+			sum += 8
 		case "A Z": // Rock > Scissors (3)
-			score += 3
+			sum += 3
 		case "B X": // Paper > Rock (1)
-			score += 1
+			sum += 1
 		case "B Y": // Paper = Paper (2)
-			score += 5
+			sum += 5
 		case "B Z": // Paper < Scissors (3)
-			score += 9
+			sum += 9
 		case "C X": // Scissors < Rock (1)
-			score += 7
+			sum += 7
 		case "C Y": // Scissors > Paper (2)
-			score += 2
+			sum += 2
 		case "C Z": // Scissors = Scissors (3)
-			score += 6
+			sum += 6
 		}
-	}
-	return score
+	})
+	return sum
 }
 
-func scorePart2(input io.Reader) int {
-	r := bufio.NewScanner(input)
-	r.Split(bufio.ScanLines)
-	var score int
-	for r.Scan() {
-		switch r.Text() {
+func part2Score(input *ilr.LineReader) int {
+	var sum int
+	input.ForEach(func(line string) {
+		switch line {
 		// Lose
 		case "A X": // Rock > Scissors (3)
-			score += 3
+			sum += 3
 		case "B X": // Paper > Rock (1)
-			score += 1
+			sum += 1
 		case "C X": // Scissors < Paper (2)
-			score += 2
+			sum += 2
 		// Draw
 		case "A Y": // Rock = Rock (1)
-			score += 4
+			sum += 4
 		case "B Y": // Paper = Paper (2)
-			score += 5
+			sum += 5
 		case "C Y": // Scissors = Scissors (3)
-			score += 6
+			sum += 6
 		// Win
 		case "A Z": // Rock < Paper (2)
-			score += 8
+			sum += 8
 		case "B Z": // Paper < Scissors (3)
-			score += 9
+			sum += 9
 		case "C Z": // Scissors > Rock (1)
-			score += 7
+			sum += 7
 		}
-	}
-	return score
+	})
+	return sum
 }

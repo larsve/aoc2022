@@ -14,7 +14,7 @@ func part1() {
 	}
 	defer close()
 
-	fmt.Printf("Part1 score: %d\n", part1Score(f))
+	fmt.Printf("Part1 sum: %d\n", part1Sum(f))
 }
 
 func part2() {
@@ -25,7 +25,7 @@ func part2() {
 	}
 	defer close()
 
-	fmt.Printf("Part2 score: %d\n", part2Score(f))
+	fmt.Printf("Part2 sum: %d\n", part2Sum(f))
 }
 
 func main() {

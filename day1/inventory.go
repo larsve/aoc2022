@@ -1,34 +1,61 @@
 package main
 
 import (
-	"bufio"
-	"io"
+	"sort"
 	"strconv"
+
+	"aoc2022/pkg/ilr"
 )
 
-func forEachElf(inventory io.Reader, f func([]int)) error {
-	r := bufio.NewScanner(inventory)
-	r.Split(bufio.ScanLines)
-	var items []int
-	for r.Scan() {
-		line := r.Text()
+func part1Sum(input *ilr.LineReader) int {
+	var sum, es int
+	input.ForEach(func(line string) {
 		if line == "" {
-			f(items)
-			items = items[:0]
-			continue
+			if es > sum {
+				sum = es
+			}
+			es = 0
+			return
 		}
 
 		n, err := strconv.Atoi(line)
 		if err != nil {
-			return err
+			panic(err)
+		}
+		es += n
+	})
+	return sum
+}
+
+func part2Sum(input *ilr.LineReader) int {
+	var perElf []int
+	var es int
+	input.ForEach(func(line string) {
+		if line == "" {
+			perElf = append(perElf, es)
+			es = 0
+			return
 		}
 
-		items = append(items, n)
+		n, err := strconv.Atoi(line)
+		if err != nil {
+			panic(err)
+		}
+		es += n
+
+	})
+	if es > 0 {
+		perElf = append(perElf, es)
 	}
 
-	if len(items) > 0 {
-		f(items)
+	// Pick top 3
+	sort.Sort(sort.Reverse(sort.IntSlice(perElf)))
+	perElf = perElf[:3]
+
+	var sum int
+	for _, cal := range perElf {
+		sum += cal
 	}
 
-	return nil
+	return sum
 }
