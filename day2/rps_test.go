@@ -1,11 +1,15 @@
 package main
 
 import (
+	_ "embed"
 	"fmt"
 	"testing"
 
 	"aoc2022/pkg/ilr"
 )
+
+//go:embed input.txt
+var benchInput string
 
 func Test_part1Score(t *testing.T) {
 	tests := []struct {
@@ -26,6 +30,14 @@ func Test_part1Score(t *testing.T) {
 	}
 }
 
+func Benchmark_part1Sum(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		if sum := part1Score(ilr.New(benchInput)); sum != 9651 {
+			b.Fatalf("ERROR: wrong sum")
+		}
+	}
+}
+
 func Test_part2Score(t *testing.T) {
 	tests := []struct {
 		input     string
@@ -42,5 +54,13 @@ func Test_part2Score(t *testing.T) {
 				t.Errorf("ERROR: got score: %v, want %v", got, tt.wantScore)
 			}
 		})
+	}
+}
+
+func Benchmark_part2Sum(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		if sum := part2Score(ilr.New(benchInput)); sum != 10560 {
+			b.Fatalf("ERROR: wrong sum")
+		}
 	}
 }
